@@ -5,11 +5,11 @@
 - Parse specification **and** baseband implementation data structures
 - Compare the implemetation layout and try to find mismatches that are non-compliant with the specification
 
-![BaseSPEC approach](../../../../assets/basespec/approach.png)
+![BaseSPEC approach](../../../assets/basespec/approach.png)
 
 ### Baseband part
 
-![Handling of message mismatches](../../../../assets/basespec/handling.png)
+![Handling of message mismatches](../../../assets/basespec/handling.png)
 
 1. Process the baseband firmware and extract strings
 2. Process the specifcation and extract the specification messages
@@ -19,7 +19,7 @@
     - There might be invalid fields in the binary, which do not map to the specification or missing ones (incomplete)
 
 
-![Example with all 4 cases](../../../../assets/basespec/example.png)
+![Example with all 4 cases](../../../assets/basespec/example.png)
 
 ## Evaluation
 

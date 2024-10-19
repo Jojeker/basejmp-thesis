@@ -10,7 +10,7 @@
 
 ## Approach
 
-![BaseComp High-Level Approach](../../../../assets/basecomp-approach.png)
+![BaseComp High-Level Approach](../../../assets/basecomp-approach.png)
 
 ### How are implementations probed/tested? 
 
@@ -25,7 +25,7 @@
 
 #### Factor Graphs
 
-![BaseComp Factor Graph](../../../../assets/basecomp-factor-graph.png)
+![BaseComp Factor Graph](../../../assets/basecomp-factor-graph.png)
 
 - In order to find the integrity protection function, the binary is scanned for this graph
 - If a "matching" function is found, it is very likely to be the integrity protection function
@@ -66,7 +66,7 @@
 - Bugs were discovered in Samsung, MTK and srsRAN basebands
 - Critical vulnerability: Non-Access-Stratum AKA Bypass
 
-![LTE AKA Bypass](../../../../assets/basecomp-aka-bypass.png)
+![LTE AKA Bypass](../../../assets/basecomp-aka-bypass.png)
 
 ### Future Work & Discussion
 

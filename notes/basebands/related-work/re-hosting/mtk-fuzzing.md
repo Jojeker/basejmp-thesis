@@ -14,7 +14,7 @@
 4. Extract call graph of message handlers
 5. Fuzz the entry function (`mm_main`)
 
-![Call Graph for Fuzzing](../../../../assets/mtk-rehosting/call-graph.png)
+![Call Graph for Fuzzing](../../../assets/mtk-rehosting/call-graph.png)
 
 ## Re-Hosting
 
@@ -23,5 +23,5 @@
 - Use AFL QEMU for Fuzzing
 - MIPS16e2 support was missing (they implemented it on their own but did not share it publicly)
 
-![Crash report in Dmesg](../../../../assets/mtk-rehosting/crash-ind-dmesg.png)
+![Crash report in Dmesg](../../../assets/mtk-rehosting/crash-ind-dmesg.png)
 

@@ -13,7 +13,7 @@
         2. in order to evaluate whether the baseband has crashed
 4. For a found crash: use the `debug` mode to output the disassembled instructions and register values during execution
 
-![BaseSAFE setup](../../../../assets/basesafe-setup.png)
+![BaseSAFE setup](../../../assets/basesafe-setup.png)
 
 ### Unicorn: Re-Hosting & Fuzzing
 
