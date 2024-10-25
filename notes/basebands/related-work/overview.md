@@ -71,6 +71,18 @@
 - Initial work - formal modeling
 - IJON for protocol fuzzing
 
+## Motivation for Security Research 
+
+From [Hermes](./static-analysis/hermes.md)
+
+> If the standard body, i.e., 3GPP provides a gold FSM and it is sufficiently detailed for 
+comprehensive formal analysis, it could potentially provide better results than hand-crafted 
+or automatically extracted FSMs. However, 3GPP does not provide any such FSM for cellular protocols.
+In fact, 3GPP plans against that since constructing such a gold FSM is extremely tedious, often 
+error-prone, and may cause inconvenience in handling interoperabilities among stakeholders as the 
+specifications leave many details to the developers’ discretion.
+
+- I.e. Security research in this area will remain a problem for the foreseeable future
 
 ## State-Machine Generation approach
 
@@ -79,4 +91,4 @@
     2. Or actively
     3. Or a combination (cf. [5Gbasechecker](./ota-fuzzing/5gbasechecker.md))
 - b) Generate the state-machine from the specification (cf. [Hermes](./static-analysis/hermes.md))
-- c) Replay like for OTA-fuzzin 
+- c) Replay like for OTA-fuzzing against a real base-station implementation
