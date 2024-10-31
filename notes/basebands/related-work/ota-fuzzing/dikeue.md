@@ -5,7 +5,7 @@
 - Automated Black-Box testing for LTE control plane implementations (L3)
 - No direct checking of security properties - instead **differential testing**
 - Finding Noncompliance in between instances (pairwise comparison)
-    - Focus not directly on finding vulnerabilities - this follows more as a consequence from
+    - Focus not directly on finding vulnerabilities - this follows more as a consequence of
     violating security properties
 
 ### Protocol learning Approach

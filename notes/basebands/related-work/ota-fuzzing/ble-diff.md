@@ -76,7 +76,7 @@ applied:
 
 #### Handling Reset, Human Interaction and BLE random addressing
 
-- Reset must be transparent and the replay must be deterministic for reliable learning
+- Reset must be transparent, and the replay must be deterministic for reliable learning
 - Approach:
     - Set the passkeys to `0x000000`
     - Perform software resets (touch simulation on phones)
