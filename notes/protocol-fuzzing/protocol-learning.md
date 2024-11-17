@@ -72,11 +72,6 @@
             - Or: a Neural Network can do it without prior knowledge of the protocol but with higher probability of errors
             - The abstraction removes session specific fields and parses protocol state (the reverse usually does not hold: the fields cannot provide the session information)
 
-### Theoretical insight: Active L* algorithm
-
-- Active learning approach with a teacher that finds counter-examples
-- TODO: Find more information on this 
-
 ### Passive learning algorithm
 
 - Approach: collect traces passively and construct model from it
