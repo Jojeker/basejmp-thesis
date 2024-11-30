@@ -1,0 +1,37 @@
+% !TEX root =  ../thesis.tex
+% Disable page numbers on this page and don't count it
+\includepdf[pages={1},offset=0 -20,pagecommand={%
+\begin{tikzpicture}[remember picture,overlay,shift={(current page.center)}]
+\coordinate (de_begin-de_generic) at (2.75,7.15);
+\coordinate (de_end-de_generic) at (3.75,7.15);
+\coordinate (de_begin-de_bachelor) at (3.85,7.15);
+\coordinate (de_end-de_bachelor) at (6.35,7.15);
+\coordinate (en_begin-en_generic) at (0.55,6.18);
+\coordinate (en_end-en_generic) at (1.25,6.18);
+\coordinate (en_begin-en_bachelor) at (1.35,6.18);
+\coordinate (en_end-en_bachelor) at (3.25,6.18);
+\node at (-8.05,8.8)
+       [text width=7cm,rounded corners,below right]
+{\mbox{Vlad, Eduard}};
+\node at (0.70,8.8)  
+       [text width=5cm,rounded corners,below right]
+{406741};
+\draw[line width=1mm] (de_begin-de_generic) -- (de_end-de_generic);
+\draw[line width=1mm] (de_begin-de_bachelor) -- (de_end-de_bachelor);
+\draw[line width=0.5mm] (en_begin-en_generic) -- (en_end-en_generic);
+\draw[line width=0.5mm] (en_begin-en_bachelor) -- (en_end-en_bachelor);
+\node at (-8.05,5.71)
+       [text width=16.5cm,rounded corners,below right]
+{\begin{onehalfspacing}%
+Applying Emulation and Protocol Fuzzing for Identifying\phantom{g}\\[0.15em]
+Vulnerabilities in Mobile Baseband Processors\phantom{g}\\[0.1em]
+\end{onehalfspacing}
+};
+\node at (-8.05,-0.90)
+       [text width=7cm,rounded corners,below right]
+{Lausanne, {14. April 2025}};
+\node at (-8.05,-11.95)
+       [text width=7cm,rounded corners,below right]
+{Lausanne, {14. April 2025}};
+\end{tikzpicture}
+}]{Formular_Eidesstattliche_Versicherung.pdf}

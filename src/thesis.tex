@@ -12,336 +12,38 @@
 % Options: MScThesis, BScThesis, MScProject, BScProject
 \usepackage[MScThesis,lablogo]{EPFLreport}
 \usepackage{xspace}
+\usepackage{multicol}
+\usepackage{relsize}
+\usepackage{tikz}
+\usepackage{pdfpages}
 
-\title{A wonderful thesis\\about the merits of scientific writing}
-\author{The Student}
-\supervisor{The Doctoral Student}
-\adviser{Prof. Dr. sc. ETH Mathias Payer}
-%\coadviser{Second Adviser}
-\expert{The External Reviewer}
+% Acronyms
+\usepackage{acro}
+\input{acronyms/acrosettings}
+\input{acronyms/acronyms}
 
-\newcommand{\sysname}{FooSystem\xspace}
+\title{Applying Emulation and Protocol Fuzzing for Identifying Vulnerabilities in Mobile Baseband Processors}
+\author{Eduard Vlad}
+\supervisor{Dr. Marcel Busch}
+\adviser{Prof. Dr.\ sc. ETH Mathias Payer}
+\coadviser{Prof. Dr.-Ing. Ulrike Meyer}
+
+\newcommand{\sysname}{NoSystem\xspace}
 
 \begin{document}
 \maketitle
-\makededication
-\makeacks
 
-\begin{abstract}
-To be commpleted
-\end{abstract}
-
-\begin{frenchabstract}
-To be completed
-\end{frenchabstract}
-
-\maketoc
-
-%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Introduction}
-%%%%%%%%%%%%%%%%%%%%%%
-
-This section is usually 3--5 pages.
-
-%%%%%%%%%%%%%%%%%%%%
-\chapter{Background}
-%%%%%%%%%%%%%%%%%%%%
-
-\section{Cellular Networks}
-\begin{itemize}
-  \item Explain the architecture of cellular networks (graphically)
-  \item Focus on 4G to 5G, how they function, and what their network architecture looks like
-  \item Mainly: Centralized authentication and root of trust at Mobile Network Operator (MNO)
-\end{itemize}
-
-\subsection{Security of Cellular Networks}
-\subsubsection{User Equipment - System on a Chip}
-\begin{itemize}
-  \item Application processor
-  \item Baseband processor, identification of it via IMEI
-  \item SIM for user authentication
-\end{itemize}
-\subsubsection{Base Stations}
-\begin{itemize}
-  \item Connection procedure: Network Attachment Sublayer (NAS) with sub-functions
-    \begin{itemize}
-      \item Mobility Management
-      \item Session Management
-      \item Connection Management
-    \end{itemize}
-  \item Registration and Attachment Procedure
-  \begin{itemize}
-    \item Authentication, and session establishment, release
-    \item A high level state machine?
-  \end{itemize}
-  \item Mobility Management Entity (MME)
-  \item After connection success: User Plane Function (UPF)
-\end{itemize}
-  
-\subsection{Baseband Processors}
-
-\subsubsection{Key Functionalities}
-\begin{itemize}
-  \item Signal Processing
-  \item Protocol Processing
-  \item Encryption 
-  \item Session Management
-  \item Resource Management
-\end{itemize}
-
-\subsubsection{Hardware Architecture}
-\begin{itemize}
-  \item One or more DSP cores - for signal decoding and processing
-  \item Real-time-capable MCU core(s) with or without a memory management unit.
-  \item Important 
-\end{itemize}
-
-\subsubsection{Software Architecture}
-\begin{itemize}
-  \item Real-Time OS with one task mostly corresponding to one layer of the cellular stack
-  \item Mail-box communication system: a task works on a message queue and forwards computed results
-  \item Protocol implementations reach from PHY to IP for all supported cellular standards (2G-5G)
-  \item Implementations are years old and written / generated mainly in C.
-\end{itemize}
-
-For both overviews, provide a practical perspective: what implementations do manufacturers use?
-Does a common architecture exist, or are there differences?
-\begin{itemize}
-  \item Explain that Qualcomm uses Hexagon - DSP architecture even for protocol processing.
-  \item New Shannon basebands use an MMU - harder to reverse-engineer/understand/debug.
-\end{itemize}
-
-
-\subsection{Open Source eNodeB/gNodeB and UE implementations}
-
-\begin{itemize}
-  \item srsRAN: leading and most stable implementation
-  \item OpenAirInterface: more feature-rich and experimental implementation
-  \item Both exist for 4G and 5G deployments and are set up in this way.
-  \item UE implementations: compare implemenation model to real-world implementation in basebands 
-\end{itemize}
-
-
-\section{Protocol Fuzzing}
-
-\begin{itemize}
-  \item Differences between Protocol Fuzzing and Traditional Fuzzing:
-  \begin{enumerate}
-    \item Higher complexity in terms of communication: state is building up with every message, both as part of the protocol but more importantly in the implementation.
-    \item Need to guarantee additional features that form a more secure or reliable communication: time requirements, authentication, confidentiality, and concurrency
-    \item Constrained Testing environment: Testing implementations (especially low-level ones) are tightly coupled to hardware.
-    \begin{itemize}
-      \item Fuzzing is slower, since there is a dependency on the physical and data link layers
-      \item Examples: sectors such as automotive, industrial control system, or baseband processors
-    \end{itemize}
-  \end{enumerate}
-\end{itemize}
-
-\subsection{Architecture of a Protocol Fuzzer}
-\begin{itemize}
-  \item Refer to \enquote{A survey of Protocol Fuzzing} for a graphical representation
-  \item Bug Collection: either via Memory Safety violations (i.e. Sanitization) or semantic bugs (Illegal States)
-  \item Execution: on-device Over-The-Air (OTA) or via emulation
-  \item Execution Information collection: via rewriting and hooking mechanisms or with externally observable parameters (return values, processing duration, etc.)
-\end{itemize}
-
-\subsection{Re-Hosting}
-\begin{itemize}
-  \item Standard Platforms such as Linux/Windows have a standardized I/O interface
-  \item Analysis of software running on those platforms is straightforward
-  \item Embedded Systems have (undocumented) non-standard I/O-Interfaces
-  \item Interaction with several devices, that are not know beforehand but probed during startup/runtime
-  \item Provided a memory map with known I/O ports, it is possible to infer/probe the ports and derive a model for the periphery.
-  \item Often, when analyzing embedded firmware, it is not of interest to enable all periphery modules, but a subset, relevant to the investigation.
-\end{itemize}
-
-%%%%%%%%%%%%%%%%
-\chapter{Related Work}
-%%%%%%%%%%%%%%%%
-
-The research community eagerly approaches concepts of baseband security analysis.
-While initial work focused mainly on manual methods for conducting baseband analysis~\cite{}, the focus has shifted to more automated approaches.
-
-\section{Initial Work}
-
-\begin{itemize}
-  \item Attacks on basebands were possible before, but not very economic: SDRs established in the late 2000s
-  \item "All your basebands belong to us"~\cite{Weinmann10} constitutes initial work in the area of baseband security research
-  \item Vulnerabilities in Apple and Qualcomm modems, that enabled arbitrary code execution on the modems. 
-  \item Very critical impact, as it enabled to take phone calls without ringing i.e. record audio remotely.
-\end{itemize}
-
-\begin{itemize}
-  \item \enquote{A Walk with Shannon}~\cite{Cama18}
-  \item Methodology: Read specification and find discrepancy to modem implementation.
-  \item Reverse-Engineering of Baseband Modem to verify vulnerability
-  \item Collection of RAM-dumps for understanding the memory layout and testing attacks.
-\end{itemize}
-
-These results lead to the conclusion that finding vulnerabilities with manual labor led to promising results but requires (i) a deep expertise of basebands and (ii) does not scale well.
-This realization has led to increased interest from vulnerability researchers, with a shift towards more complex standards like LTE and 5G, and a focus on a wider variety of manufacturers. 
-Additionally, there is a clear need for more scalable approaches.
-
-Current research is exploring three main directions: 
-Advanced Static Analysis and Verification, Over-The-Air Fuzzing and, Message Parser Fuzzing via Re-Hosting
-We examine each direction below:
-
-
-\section{Advanced Static Analysis}
-\begin{itemize}
-  \item BaseSpec by Kim et al. ~\cite{Kim21}:
-    \begin{itemize}
-      \item Compares protocol specifications with actual implementations
-      \item Extracts data structures in both
-      \item and finally compares them.
-      \item Discrepancies are analyzed and classified as vulnerabilities.
-    \end{itemize}
-  \item Building on this, BaseComp was introduced as the successor work~\cite{Kim23}
-    \begin{itemize}
-      \item Aims to compare specifically the integrity protection functions in cellular basebands
-      \item Reduces manual efforts
-      \item Compares Control Flow Graphs (CFGs) from baseband firmware with specifications
-      \item Limitation: Only one subcomponent of the stack is analyzed
-    \end{itemize}
-  \item Liu et al~\cite{Liu24} propose a method for analyzing baseband firmware statically.
-    \begin{itemize}
-      \item Identify memory accesses with attacker-controllable input
-      \item Taint vulnerable programming patterns 
-      \item Propagate the tainted positions to entry points
-    \end{itemize}
-\end{itemize}
-
-These approaches share common techniques:
-\begin{itemize}
-  \item They are specification-based
-  \item They use symbolic execution and static analysis
-  \item They extract data structures and CFGs form the modems
-\end{itemize}
-
-Corresponding to the following advantages:
-\begin{itemize}
-  \item Finding logical errors is easily possible as the specification is taken as a reference
-\end{itemize}
-However, they also face significant challenges:
-\begin{itemize}
-  \item Time-consuming and incomplete analysis
-  \item Consequence: Scalability remains an issue
-  \item They can produce a high number of false positives
-\end{itemize}
-
-\section{Over-The-Air Fuzzing}
-
-\section{Message Parser Fuzzing via Re-Hosting}
-
-
-The key motivation for this re-hosting based approach is to maintain the true positives from OTA testing while gaining visibility into the execution trace.
-Emulation provides this crucial insight into coverage information.
-
-Two particularly impactful approaches have emerged from the field of embedded device re-hosting:
-\begin{enumerate}
-  \item BaseSAFE by Maier et al.~\cite{Maier2020}
-    \begin{itemize}
-      \item Selectively re-hosts parts of the modem, focusing on parser vulnerabilities
-      \item adds hooks to memory management functions and injects sanitization behavior
-      \item allows for coverage-guided fuzzing and bug identification
-      \item Limitation: due to its selective nature, it does not achieve a 1:1 behavior with a real modem, potentially leading to false positives
-    \end{itemize}
-  \item Firmwire by Hernandez et al.~\cite{Hernandez2022}:
-    \begin{itemize}
-      \item Approach: Re-hosting the entire device and (a subset of) its peripherals
-      \item Extensibility: framework to simplify re-hosting of similar modems
-      \item Working Principle: emulates peripherals outside the device, giving the illusion of a real modem environment.
-      \item Limitation: fuzzing focuses on modem tasks, particularly targeting parser vulnerabilities through mutational fuzzing
-    \end{itemize}
-\end{enumerate}
-
-The advantages of these emulation-based approaches are significant:
-\begin{itemize}
-  \item No need for hardware-in-the-loop testing
-  \item Dynamic rewriting allows for additional features such as sanitization
-  \item Enables crucial insight into code coverage
-\end{itemize}
-
-However, they also face challenges:
-\begin{itemize}
-  \item High complexity in implementation
-  \item Difficulties in accurate periphery modeling
-  \item Limited coverage due to reliance on mutational fuzzing
-\end{itemize}
-
-%%%%%%%%%%%%%%%%
-\chapter{Design}
-%%%%%%%%%%%%%%%%
-
-Introduce and discuss the design decisions that you made during this project.
-Highlight why individual decisions are important and/or necessary. Discuss
-how the design fits together.
-
-This section is usually 5-10 pages.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Implementation}
-%%%%%%%%%%%%%%%%%%%%%%%%
-
-The implementation covers some of the implementation details of your project.
-This is not intended to be a low level description of every line of code that
-you wrote but covers the implementation aspects of the projects.
-
-This section is usually 3-5 pages.
-
-
-%%%%%%%%%%%%%%%%%%%%
-\chapter{Evaluation}
-%%%%%%%%%%%%%%%%%%%%
-
-In the evaluation you convince the reader that your design works as intended.
-Describe the evaluation setup, the designed experiments, and how the
-experiments showcase the individual points you want to prove.
-
-This section is usually 5-10 pages.
-
-
-%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Related Work}
-%%%%%%%%%%%%%%%%%%%%%%
-
-The related work section covers closely related work. Here you can highlight
-the related work, how it solved the problem, and why it solved a different
-problem. Do not play down the importance of related work, all of these
-systems have been published and evaluated! Say what is different and how
-you overcome some of the weaknesses of related work by discussing the 
-trade-offs. Stay positive!
-
-This section is usually 3-5 pages.
-
-
-%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusion}
-%%%%%%%%%%%%%%%%%%%%
-
-In the conclusion you repeat the main result and finalize the discussion of
-your project. Mention the core results and why as well as how your system
-advances the status quo.
+% Use a bit of indirection
+\input{chapters/mainmatter.tex}
 
 \cleardoublepage
 \phantomsection
 \addcontentsline{toc}{chapter}{Bibliography}
-\printbibliography
-
-% Appendices are optional
-% \appendix
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \chapter{How to make a transmogrifier}
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% In case you ever need an (optional) appendix.
-%
-% You need the following items:
-% \begin{itemize}
-% \item A box
-% \item Crayons
-% \item A self-aware 5-year old
-% \end{itemize}
+\nocite{*} % Show non-cited articles
+\begin{multicols}{2}
+  \smaller[1]
+%   \bibliography{literature/literature}
+    \printbibliography
+\end{multicols}
 
 \end{document}

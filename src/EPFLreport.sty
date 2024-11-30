@@ -22,7 +22,7 @@
   backend=bibtex,
   style=numeric-comp,
   hyperref=true,
-  %style=numeric,
+  style=numeric,
   %sorting=ydnt,
   defernumbers=true,
   maxbibnames=99,
@@ -73,6 +73,11 @@
   \def\@adviser{#1}
 }
 
+\def\@coadviser{Thesis Advisor}
+\newcommand{\coadviser}[1]{
+  \def\@coadviser{#1}
+}
+
 \def\@supervisor{Thesis Supervisor}
 \newcommand{\supervisor}[1]{
   \def\@supervisor{#1}
@@ -109,12 +114,20 @@
 \begingroup
 \thispagestyle{empty}
 \drop=0.1\txtheight
-\begin{textblock*}{4in}[0.3066,0.39](1.5in,0.85in)
-    \includegraphics[width=2.5in]{EPFLlogo}
+\begin{textblock*}{4in}[0.3066,0.39](1.6in,0.85in)
+    \includegraphics[height=0.5in]{logos/EPFL_logo}
 \end{textblock*}
 \if@lablogo
-\begin{textblock*}{4in}[0.3066,0.39](5.7in,0.85in)
-    \includegraphics[width=3in]{LABlogo}
+% Put a bar here height 0.5in in epfl red
+\begin{textblock*}{4in}[0.3066,0.39](3.45in,0.85in)
+  \textcolor{red}{\rule{0.8pt}{0.5in}}
+\end{textblock*}
+\begin{textblock*}{4in}[0.3066,0.39](3.6in,0.85in)
+    \vspace{0.15in}
+    \includegraphics[height=0.31in]{logos/LAB_logo}
+\end{textblock*}
+\begin{textblock*}{4in}[0.3066,0.39](5.6in,0.85in)
+    \includegraphics[height=0.5in]{logos/RWTH_logo}
 \end{textblock*}
 \fi
 \vspace*{\drop}
@@ -128,15 +141,16 @@ by \@author\par
 
 \flushleft
 {Approved by the Examining Committee:}\par
-\vspace{1.5\baselineskip}
+\vspace{2.5\baselineskip}
 \@adviser\\
-Thesis Advisor \\[1\baselineskip]
-\@expert\\
-External Expert \\[1\baselineskip]
+Thesis Advisor (EPFL) \\[1\baselineskip]
+\@coadviser\\
+Thesis Advisor (RWTH) \\[1\baselineskip]
 \@supervisor\\
-Thesis Supervisor\par
+Thesis Supervisor (EPFL)\par
 \centering
-\vspace{1\baselineskip}
+
+\vspace{4\baselineskip}
 EPFL IC IINFCOM HEXHIVE \\
 BC 160 (Bâtiment BC) \\
 Station 14 \\
@@ -206,14 +220,14 @@ and show them with \texttt{\textbackslash{}makeacks}.
 \def\abstract{\cleardoublepage
 \chapter*{Abstract}
 \markboth{Abstract}{Abstract}
-\addcontentsline{toc}{chapter}{Abstract (English/Français)}}
+\addcontentsline{toc}{chapter}{Abstract (English/German)}}
 \def\endabstract{}
 
-\def\frenchabstract{\begin{otherlanguage}{french}
+\def\germanabstract{\begin{otherlanguage}{ngerman}
 \cleardoublepage
-\chapter*{Résumé}
-\markboth{Résumé}{Résumé}}
-\def\endfrenchabstract{\end{otherlanguage}}
+\chapter*{Kurzfassung}
+\markboth{Kurzfassung}{Kurzfassung}}
+\def\endgermanabstract{\end{otherlanguage}}
 
 \def\maketoc{
 \cleardoublepage

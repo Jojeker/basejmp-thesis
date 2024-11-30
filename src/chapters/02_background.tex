@@ -1,0 +1,144 @@
+%%%%%%%%%%%%%%%%%%%%
+\chapter{Background}
+%%%%%%%%%%%%%%%%%%%%
+
+\section{Protocol Learning}
+
+\subsection{Mealy Machines}
+
+\subsection{Equivalence Testing}
+
+\section{Fuzzing}
+
+\subsection{Protocol Fuzzing}
+
+\begin{itemize}
+  \item Differences between Protocol Fuzzing and Traditional Fuzzing:
+  \begin{enumerate}
+    \item Higher complexity in terms of communication: state is building up with every message, both as part of the protocol but more importantly in the implementation.
+    \item Need to guarantee additional features that form a more secure or reliable communication: time requirements, authentication, confidentiality, and concurrency
+    \item Constrained Testing environment: Testing implementations (especially low-level ones) are tightly coupled to hardware.
+    \begin{itemize}
+      \item Fuzzing is slower, since there is a dependency on the physical and data link layers
+      \item Examples: sectors such as automotive, industrial control system, or baseband processors
+    \end{itemize}
+  \end{enumerate}
+\end{itemize}
+\subsection{Architecture of a Protocol Fuzzer}
+
+\begin{itemize}
+  \item Refer to \enquote{A survey of Protocol Fuzzing} for a graphical representation
+  \item Bug Collection: either via Memory Safety violations (i.e. Sanitization) or semantic bugs (Illegal States)
+  \item Execution: on-device Over-The-Air (OTA) or via emulation
+  \item Execution Information collection: via rewriting and hooking mechanisms or with externally observable parameters (return values, processing duration, etc.)
+\end{itemize}
+
+\subsection{Stateful Programs}
+
+\subsection{Instrumentation}
+
+\begin{itemize}
+  \item static instrumentation 
+  \item dynamic instrumentation
+\end{itemize}
+
+
+\section{Cellular Networks}
+
+\begin{itemize}
+  \item reference: private 5g a systems approach
+  \item Explain the architecture of cellular networks (graphically)
+  \item Focus on 4G to 5G, how they function, and what their network architecture looks like
+  \item Mainly: Centralized authentication and root of trust at Mobile Network Operator (MNO)
+\end{itemize}
+
+\subsection{Network Components}
+
+
+\subsection{Connection Setup Procedure}
+
+\subsection{ASN.1}
+
+\section{Basebands}
+
+\subsection{Baseband Architecture}
+
+\subsubsection{Key Functionalities}
+\begin{itemize}
+  \item Signal Processing
+  \item Protocol Processing
+  \item Encryption 
+  \item Session Management
+  \item Resource Management
+\end{itemize}
+
+\subsubsection{Hardware Architecture}
+\begin{itemize}
+  \item One or more DSP cores - for signal decoding and processing
+  \item Real-time-capable MCU core(s) with or without a memory management unit.
+  \item Important 
+\end{itemize}
+
+\subsubsection{Software Architecture}
+\begin{itemize}
+  \item Real-Time OS with one task mostly corresponding to one layer of the cellular stack
+  \item Mail-box communication system: a task works on a message queue and forwards computed results
+  \item Protocol implementations reach from PHY to IP for all supported cellular standards (2G-5G)
+  \item Implementations are years old and written / generated mainly in C.
+\end{itemize}
+
+For both overviews, provide a practical perspective: what implementations do manufacturers use?
+Does a common architecture exist, or are there differences?
+\begin{itemize}
+  \item Explain that Qualcomm uses Hexagon - DSP architecture even for protocol processing.
+  \item New Shannon basebands use an MMU - harder to reverse-engineer/understand/debug.
+\end{itemize}
+
+
+\subsection{Re-Hosting}
+
+
+\begin{itemize}
+  \item Standard Platforms such as Linux/Windows have a standardized I/O interface
+  \item Analysis of software running on those platforms is straightforward
+  \item Embedded Systems have (undocumented) non-standard I/O-Interfaces
+  \item Interaction with several devices, that are not know beforehand but probed during startup/runtime
+  \item Provided a memory map with known I/O ports, it is possible to infer/probe the ports and derive a model for the periphery.
+  \item Often, when analyzing embedded firmware, it is not of interest to enable all periphery modules, but a subset, relevant to the investigation.
+\end{itemize}
+
+
+\subsection{Security of Cellular Networks}
+\subsubsection{User Equipment - System on a Chip}
+\begin{itemize}
+  \item Application processor
+  \item Baseband processor, identification of it via IMEI
+  \item SIM for user authentication
+\end{itemize}
+\subsubsection{Base Stations}
+\begin{itemize}
+  \item Connection procedure: Network Attachment Sublayer (NAS) with sub-functions
+    \begin{itemize}
+      \item Mobility Management
+      \item Session Management
+      \item Connection Management
+    \end{itemize}
+  \item Registration and Attachment Procedure
+  \begin{itemize}
+    \item Authentication, and session establishment, release
+    \item A high level state machine?
+  \end{itemize}
+  \item Mobility Management Entity (MME)
+  \item After connection success: User Plane Function (UPF)
+\end{itemize}
+  
+
+
+\subsection{Open Source eNodeB/gNodeB and UE implementations}
+
+\begin{itemize}
+  \item srsRAN: leading and most stable implementation
+  \item OpenAirInterface: more feature-rich and experimental implementation
+  \item Both exist for 4G and 5G deployments and are set up in this way.
+  \item UE implementations: compare implemenation model to real-world implementation in basebands 
+\end{itemize}

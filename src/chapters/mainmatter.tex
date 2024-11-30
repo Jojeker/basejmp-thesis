@@ -1,0 +1,31 @@
+% !TEX root = ../thesis.tex
+
+% TODO: Figure out new page
+
+% Declaration is no content
+\pagenumbering{gobble}
+\input{chapters/00_declaration_of_authorship.tex}
+
+% Some preamble
+\cleardoublepage
+\pagenumbering{roman}
+\input{chapters/00_abstract_en.tex}
+\input{chapters/00_abstract_de.tex}
+
+\maketoc
+% Not sure if these are necessary
+% \makededication
+% \makeacks
+
+% Start the actual numbering
+\cleardoublepage
+\pagenumbering{arabic}
+
+\input{chapters/01_introduction.tex}
+\input{chapters/02_background.tex}
+\input{chapters/03_related_work.tex}
+\input{chapters/04_problem_statement.tex}
+\input{chapters/05_design.tex}
+\input{chapters/06_implementation.tex}
+\input{chapters/07_evaluation.tex}
+\input{chapters/08_conclusion.tex}
